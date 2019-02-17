@@ -10,7 +10,7 @@ except IOError:
 
 setup(
     name='facebook-python-wrapper',
-    version='1.0.0',
+    version='1.0.1',
     description="Facebook API python client",
     long_description=long_description,
     url='https://github.com/rohitkhatri/facebook-python-sdk',

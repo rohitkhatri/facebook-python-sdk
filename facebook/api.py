@@ -8,11 +8,11 @@ class API:
     _app_secret = None
     _access_token = None
     _auth = None
-    _api_base_url = 'https://graph.facebook.com/v{version}/'
+    _api_base_url = 'https://graph.facebook.com/v{version}'
     _authorization_url = 'https://www.facebook.com/v{version}/dialog/oauth'
     _access_token_url = 'https://graph.facebook.com/v{version}/oauth/access_token'
 
-    def __init__(self, app_id, app_secret, access_token=None, version=2.8):
+    def __init__(self, app_id, app_secret, access_token=None, version=3.2):
         self._app_id = app_id
         self._app_secret = app_secret
         self._access_token = access_token
@@ -24,13 +24,13 @@ class API:
         self._access_token_url = self._access_token_url.format(version=version)
 
     def get_authorization_url(self, callback, **kwargs):
-        return self._authorization_url + '?' + urlencode({**{
+        return '{}?{}'.format(self._authorization_url, urlencode({**{
             'client_id': self._app_id,
             'response_type': 'code',
             'redirect_uri': callback,
             'state': '9sdfhkj34897skdfh38497sksdf34dfdhfj',
             'scope': 'read_stream'
-        }, **kwargs})
+        }, **kwargs}))
 
     def get_access_token(self, code, callback):
         response = requests.post(self._access_token_url, data={
@@ -50,6 +50,9 @@ class API:
     def set_access_token(self, access_token):
         self._access_token = access_token
 
+    def get_profile(self, **kwargs):
+        return self.get('/me', **{'fields': 'id,name,email', **kwargs})
+
     def get(self, endpoint, **kwargs):
         return self.request('get', endpoint, params=kwargs)
 
@@ -67,7 +70,7 @@ class API:
         if 'data' in kwargs:
             kwargs['data'] = {**kwargs['data'], **authentication}
 
-        url = self._api_base_url + endpoint if 'url' not in kwargs else kwargs['url']
+        url = '{}{}'.format(self._api_base_url, endpoint) if 'url' not in kwargs else kwargs['url']
         response = getattr(requests, method)(url, **kwargs)
 
         if response.status_code < 200 or response.status_code > 299:
