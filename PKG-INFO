@@ -1,0 +1,17 @@
+Metadata-Version: 1.1
+Name: facebook-python-wrapper
+Version: 1.0.0
+Summary: Facebook API python client
+Home-page: https://github.com/rohitkhatri/facebook-python-sdk
+Author: Rohit Khatri
+Author-email: developer.rohitkhatri@gmail.com
+License: MIT
+Description: UNKNOWN
+Keywords: facebook api python sdk
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
